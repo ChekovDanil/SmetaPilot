@@ -1,0 +1,169 @@
+/* Final estimate pass: surface incomplete pricing and make sections easier to scan. */
+.estimate-status {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 13px;
+  align-items: center;
+  margin: 12px 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(104, 229, 180, .22);
+  border-radius: 13px;
+  background: rgba(104, 229, 180, .055);
+}
+
+.estimate-status.warning {
+  border-color: rgba(246, 189, 96, .34);
+  background: rgba(246, 189, 96, .075);
+}
+
+.estimate-status .status-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--green);
+  background: rgba(104, 229, 180, .1);
+}
+
+.estimate-status.warning .status-icon {
+  color: var(--amber);
+  background: rgba(246, 189, 96, .12);
+}
+
+.estimate-status > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.estimate-status strong {
+  font-size: 13px;
+  color: #e9f1ee;
+}
+
+.estimate-status span {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #91a59d;
+}
+
+.estimate-status button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgba(246, 189, 96, .28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, .12);
+  color: #edc77f;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.group-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.group-tabs button span {
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, .045);
+  color: #71877f;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.group-tabs button.active span {
+  background: rgba(104, 229, 180, .13);
+  color: var(--green);
+}
+
+.estimate-table tbody tr[data-group="Работы"] td:first-child { box-shadow: inset 3px 0 0 rgba(104, 229, 180, .5); }
+.estimate-table tbody tr[data-group="Материалы"] td:first-child { box-shadow: inset 3px 0 0 rgba(130, 180, 255, .55); }
+.estimate-table tbody tr[data-group="Техника"] td:first-child { box-shadow: inset 3px 0 0 rgba(223, 255, 105, .5); }
+.estimate-table tbody tr[data-group="Транспорт"] td:first-child { box-shadow: inset 3px 0 0 rgba(190, 145, 255, .55); }
+.estimate-table tbody tr[data-group="Прочее"] td:first-child { box-shadow: inset 3px 0 0 rgba(255, 255, 255, .18); }
+
+.estimate-table tr.missing-price-row td {
+  background: rgba(246, 189, 96, .035);
+}
+
+.estimate-table tr.missing-price-row:hover td {
+  background: rgba(246, 189, 96, .055);
+}
+
+.estimate-table tr.missing-price-row td:nth-child(5) input {
+  border-color: rgba(246, 189, 96, .38);
+  background: rgba(246, 189, 96, .065);
+  color: #f5d699;
+}
+
+.estimate-table tr.missing-price-row td:nth-child(5) input::placeholder {
+  color: #bd9660;
+}
+
+.missing-price-row .line-total {
+  color: #b79565 !important;
+}
+
+.mobile-line.missing-price-line {
+  margin: 4px -6px;
+  padding: 16px 8px;
+  border: 1px solid rgba(246, 189, 96, .18);
+  border-radius: 10px;
+  background: rgba(246, 189, 96, .04);
+}
+
+.mobile-line-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-line .source-tag {
+  width: max-content;
+}
+
+.mobile-line.missing-price-line .mobile-values label:nth-child(2) input {
+  border-color: rgba(246, 189, 96, .38);
+  background: rgba(246, 189, 96, .055);
+}
+
+.total-warning {
+  margin: 2px 0 12px;
+  padding: 10px 11px !important;
+  display: block !important;
+  border: 1px solid rgba(8, 24, 17, .17) !important;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .22);
+  font-size: 10.5px !important;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.grand-total .incomplete-total {
+  color: #d8b978;
+}
+
+@media (max-width: 720px) {
+  .estimate-status {
+    grid-template-columns: auto 1fr;
+    padding: 13px;
+  }
+
+  .estimate-status button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .estimate-status strong { font-size: 12.5px; }
+  .estimate-status span { font-size: 10.5px; }
+  .group-tabs button span { min-width: 18px; height: 18px; font-size: 8.5px; }
+}
