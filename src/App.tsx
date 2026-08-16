@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, Calculator, Check, ChevronDown,
+  ArrowLeft, ArrowRight, Calculator, Check, ChevronDown,
   CircleHelp, ClipboardList, FileDown, HardHat, Layers3, MapPin, Search,
   ShieldCheck, WandSparkles
 } from "lucide-react";
@@ -111,45 +111,126 @@ function StartScreen({ description, setDescription, selected, setSelected, loadi
   showAll: boolean;
   setShowAll: (value: boolean) => void;
 }) {
-  const visibleCategories = showAll ? catalog : catalog.slice(0, 8);
-  return <>
-    <section className="hero">
-      <div className="technical-plan" aria-hidden="true">
-        <span className="plan-formula formula-a">S = a × b</span>
-        <span className="plan-formula formula-b">V = S × h</span>
-        <span className="plan-formula formula-c">Σ = q × p</span>
-        <span className="plan-measure measure-a">7 000</span>
-        <span className="plan-measure measure-b">50 mm</span>
-      </div>
-      <div className="hero-copy">
-        <div className="eyebrow"><TechnicalMark /> Умный мастер строительных смет</div>
-        <h1>Опишите работу.<br /><span>Получите готовую смету.</span></h1>
-        <p className="lead">SmetaPilot поймёт задачу, задаст только важные вопросы и рассчитает объёмы по прозрачным формулам.</p>
-        <div className="composer-wrap">
-          {selected && <div className="selected-category"><HardHat size={14} /> {categoryById(selected).name}<button onClick={() => setSelected(undefined)}>×</button></div>}
-          <textarea value={description} onChange={event => setDescription(event.target.value)} placeholder="Например: нужна смета на асфальтирование 700 м². Цена работ 1 400 ₽/м², асфальт 7 000 ₽ за тонну, основание — щебень..." maxLength={4000} />
-          <div className="composer-bottom"><span>{description.length ? `${description.length} символов` : "Можно писать обычными словами"}</span><button className="primary-button" onClick={onStart} disabled={loading}>{loading ? <><span className="spinner" /> Анализирую</> : <>Создать смету <ArrowRight size={18} /></>}</button></div>
+  const visibleCategories = showAll ? catalog : catalog.slice(0, 6);
+
+  return <div className="landing-v2">
+    <section className="landing-v2-hero">
+      <div className="landing-v2-copy">
+        <div className="landing-kicker">Строительные сметы и расчёты</div>
+        <h1>Опишите объект.<br /><span>Получите готовую смету.</span></h1>
+        <p className="landing-lead">Работы, материалы, техника и физические объёмы — из обычного описания проекта. Без сложных форм и десятков лишних полей.</p>
+
+        <div className="landing-composer">
+          <label htmlFor="estimate-description">Что нужно рассчитать?</label>
+          {selected && <div className="selected-category"><HardHat size={15} /> {categoryById(selected).name}<button onClick={() => setSelected(undefined)} aria-label="Убрать направление">×</button></div>}
+          <textarea id="estimate-description" value={description} onChange={event => setDescription(event.target.value)} placeholder="Например: асфальтирование 700 м², слой 50 мм, основание — щебень 150 мм. Работа 1 400 ₽/м², асфальт 7 000 ₽ за тонну." maxLength={4000} />
+          <div className="landing-composer-footer">
+            <div className="landing-example-chips">
+              <span>Примеры</span>
+              {examples.map((example, index) => <button key={example} onClick={() => { setDescription(example); setSelected(index === 0 ? "roads" : index === 1 ? "interiors" : "concrete"); }}>{index === 0 ? "Дорога" : index === 1 ? "Ремонт" : "Фундамент"}</button>)}
+            </div>
+            <button className="landing-cta" onClick={onStart} disabled={loading}>{loading ? <><span className="spinner" /> Анализирую</> : <>Рассчитать смету <ArrowRight size={20} /></>}</button>
+          </div>
         </div>
-        {error && <div className="form-error"><CircleHelp size={16} /> {error}</div>}
-        <div className="examples"><span>Попробовать:</span>{examples.map((example, index) => <button key={example} onClick={() => { setDescription(example); setSelected(index === 0 ? "roads" : index === 1 ? "interiors" : "concrete"); }}>{index === 0 ? "Дорога" : index === 1 ? "Ремонт офиса" : "Фундамент"}</button>)}</div>
+        {error && <div className="form-error"><CircleHelp size={17} /> {error}</div>}
+
+        <div className="landing-proofline">
+          <span><ShieldCheck size={18} /> Без регистрации</span>
+          <span><Calculator size={18} /> Прозрачные формулы</span>
+          <span><FileDown size={18} /> PDF и Excel</span>
+        </div>
       </div>
-      <div className="hero-side">
-        <div className="pilot-card estimate-sheet-card"><div className="card-orbit orbit-one" /><div className="card-orbit orbit-two" /><div className="pilot-head"><TechnicalMark /><div><small>SMETAPILOT / ESTIMATE</small><strong>От задачи до документа</strong></div></div>
-          <div className="pilot-step"><span>01</span><div><strong>Распознаёт</strong><p>вид работ, объёмы и ваши цены</p></div><BadgeCheck size={18} /></div>
-          <div className="pilot-step"><span>02</span><div><strong>Уточняет</strong><p>только параметры, влияющие на итог</p></div><CircleHelp size={18} /></div>
-          <div className="pilot-step"><span>03</span><div><strong>Рассчитывает</strong><p>работы, материалы, технику и НДС</p></div><Calculator size={18} /></div>
-          <div className="pilot-result"><div><small>Результат</small><strong>Редактируемая смета</strong></div><div className="export-pills"><span>PDF</span><span>XLSX</span></div></div>
+
+      <div className="landing-v2-visual">
+        <div className="construction-section" aria-hidden="true">
+          <div className="section-measure section-measure-top">700 м²</div>
+          <div className="road-slice">
+            <div className="road-layer asphalt"><span>Асфальтобетон</span><b>50 мм</b></div>
+            <div className="road-layer crushed"><span>Щебёночное основание</span><b>150 мм</b></div>
+            <div className="road-layer base"><span>Подготовленное основание</span><b>проект</b></div>
+          </div>
+          <div className="section-measure section-measure-side">200 мм</div>
+        </div>
+
+        <div className="estimate-preview-card">
+          <div className="preview-head">
+            <div><span>Смета № SP-0248</span><strong>Дорожные работы — 700 м²</strong></div>
+            <em>Предварительная</em>
+          </div>
+          <div className="preview-table">
+            <div className="preview-row preview-row-head"><span>Позиция</span><span>Объём</span><span>Стоимость</span></div>
+            <div className="preview-row"><strong>Подготовка основания</strong><span>700 м²</span><b>98 000 ₽</b></div>
+            <div className="preview-row"><strong>Щебень</strong><span>159,8 т</span><b>191 760 ₽</b></div>
+            <div className="preview-row"><strong>Асфальтобетон</strong><span>84,7 т</span><b>593 023 ₽</b></div>
+          </div>
+          <div className="preview-summary">
+            <div><span>Текущий итог</span><strong>845 413 ₽</strong></div>
+            <div className="preview-formats"><span>PDF</span><span>XLSX</span></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section className="directions">
-      <div className="section-heading"><div><span>Направления</span><h2>Один мастер для разных видов строительства</h2></div><button onClick={() => setShowAll(!showAll)}>{showAll ? "Свернуть" : `Все ${catalog.length} направлений`} <ChevronDown size={17} className={showAll ? "rotate" : ""} /></button></div>
-      <div className="category-grid">{visibleCategories.map((category, index) => <button key={category.id} className={`category-card ${selected === category.id ? "selected" : ""}`} onClick={() => setSelected(selected === category.id ? undefined : category.id)}><span className="category-number">{String(index + 1).padStart(2, "0")}</span><div><strong>{category.shortName}</strong><p>{category.description}</p></div><ArrowRight size={17} /></button>)}</div>
+    <section className="landing-process">
+      <div className="landing-section-heading">
+        <span>Как это работает</span>
+        <h2>От описания до документа — три понятных шага</h2>
+      </div>
+      <div className="process-grid">
+        <article><span>01</span><div><h3>Опишите объект</h3><p>Напишите обычными словами вид работ, площадь, объёмы и известные цены.</p></div></article>
+        <article><span>02</span><div><h3>Уточните главное</h3><p>SmetaPilot спросит только параметры, которые действительно влияют на расчёт.</p></div></article>
+        <article><span>03</span><div><h3>Получите смету</h3><p>Редактируйте позиции и цены, затем выгружайте документ в PDF или Excel.</p></div></article>
+      </div>
     </section>
 
-    <section className="trust-row"><div><ShieldCheck /><span><strong>Без регистрации</strong>Проекты сохраняются на устройстве</span></div><div><Layers3 /><span><strong>Прозрачный расчёт</strong>Видно происхождение каждой цифры</span></div><div><FileDown /><span><strong>Готовый документ</strong>PDF для клиента и Excel для работы</span></div></section>
-  </>;
+    <section className="landing-directions">
+      <div className="landing-section-heading split">
+        <div><span>Направления</span><h2>Сметы для основных видов строительных работ</h2></div>
+        <button onClick={() => setShowAll(!showAll)}>{showAll ? "Свернуть" : `Все ${catalog.length} направлений`} <ChevronDown size={19} className={showAll ? "rotate" : ""} /></button>
+      </div>
+      <div className="landing-category-grid">{visibleCategories.map((category, index) => <button key={category.id} className={`landing-category-card ${selected === category.id ? "selected" : ""}`} onClick={() => setSelected(selected === category.id ? undefined : category.id)}>
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <div><strong>{category.shortName}</strong><p>{category.description}</p></div>
+        <ArrowRight size={20} />
+      </button>)}</div>
+    </section>
+
+    <section className="landing-calculation">
+      <div className="calculation-copy">
+        <span className="landing-section-label">Прозрачный расчёт</span>
+        <h2>Понятно, откуда берётся каждая цифра</h2>
+        <p>Физические объёмы рассчитываются по формулам, а исходные параметры остаются видимыми. Пользователь может проверить и изменить любое значение.</p>
+        <div className="calculation-note"><Calculator size={21} /><span><strong>Никакой магии.</strong> Площадь, толщина, плотность и запас превращаются в понятный объём материала.</span></div>
+      </div>
+      <div className="calculation-flow" aria-label="Пример расчёта асфальтобетона">
+        <div><span>Площадь</span><strong>700 м²</strong></div><i>×</i>
+        <div><span>Толщина</span><strong>0,05 м</strong></div><i>=</i>
+        <div><span>Объём</span><strong>35 м³</strong></div><i>×</i>
+        <div><span>Плотность</span><strong>2,35 т/м³</strong></div><i>+</i>
+        <div className="accent"><span>Запас 3%</span><strong>84,72 т</strong></div>
+      </div>
+    </section>
+
+    <section className="landing-document">
+      <div className="document-preview">
+        <div className="document-preview-top"><BrandMark compact /><div><span>SMETAPILOT</span><strong>Смета на дорожные работы</strong></div></div>
+        <div className="document-lines"><i /><i /><i /><i /><i /></div>
+        <div className="document-total"><span>Итого с НДС</span><strong>845 412,88 ₽</strong></div>
+      </div>
+      <div className="document-copy">
+        <span className="landing-section-label">Готовый документ</span>
+        <h2>Смета, которую можно отправить заказчику</h2>
+        <p>Структурированный PDF для согласования и Excel для дальнейшей работы. В документе видны позиции, объёмы, цены, итоги и допущения.</p>
+        <div className="document-features"><span><Check size={18} /> Работы и материалы</span><span><Check size={18} /> Итоги и НДС</span><span><Check size={18} /> Допущения расчёта</span></div>
+      </div>
+    </section>
+
+    <section className="landing-final-strip">
+      <div><ShieldCheck size={22} /><span><strong>Данные остаются у вас</strong>Проекты сохраняются локально на устройстве.</span></div>
+      <div><Layers3 size={22} /><span><strong>Расчёт можно проверить</strong>Формулы и источники значений видны в смете.</span></div>
+      <div><FileDown size={22} /><span><strong>Результат готов к работе</strong>Редактирование, PDF и XLSX в одном сценарии.</span></div>
+    </section>
+  </div>;
 }
 
 function QuestionsScreen({ analysis, parameters, setParameters, settings, setSettings, onBack, onCreate }: {
