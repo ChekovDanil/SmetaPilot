@@ -1,0 +1,164 @@
+/* Readability layer: keep the original visual identity, but make the working UI easier to scan. */
+:root {
+  --line: rgba(190, 221, 210, .22);
+  --muted: #a8bbb4;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  letter-spacing: 0;
+}
+
+.privacy { font-size: 13px; color: #a6bab3; }
+.progress { font-size: 12px; }
+.eyebrow { font-size: 12px; }
+.composer-wrap textarea { font-size: 16px; line-height: 1.7; }
+.composer-bottom > span,
+.selected-category,
+.examples > span,
+.examples button { font-size: 12px; }
+.primary-button,
+.ghost-button,
+.secondary-button { font-size: 13px; min-height: 44px; }
+
+.pilot-head small,
+.pilot-result small { font-size: 10px; }
+.pilot-head strong { font-size: 15px; }
+.pilot-step > span { font-size: 11px; }
+.pilot-step strong { font-size: 14px; }
+.pilot-step p { font-size: 12px; line-height: 1.45; color: #9cafaa; }
+.pilot-result strong { font-size: 14px; }
+.export-pills span { font-size: 10px; }
+
+.section-heading > div > span { font-size: 11px; }
+.section-heading > button { font-size: 13px; }
+.category-number { font-size: 10px; }
+.category-card strong { font-size: 14px; }
+.category-card p { font-size: 12px; line-height: 1.55; color: #91a59e; }
+.trust-row span { font-size: 12px; color: #90a59d; }
+.trust-row strong { font-size: 13px; color: #d0ddd8; }
+
+.back-link { font-size: 13px; }
+.workspace-title p { font-size: 14px; line-height: 1.55; color: #a6b7b1; }
+.confidence small { font-size: 10px; }
+.panel { border-color: rgba(190, 221, 210, .19); }
+.panel-title small { font-size: 10px; color: #82978f; }
+.panel-title h2 { font-size: 16px; }
+.required-dot { font-size: 11px; }
+.field-card { padding: 16px; }
+.field-card > span,
+.simple-field > span,
+.mode-field > span { font-size: 12px; color: #b5c4bf; }
+.input-shell { min-height: 44px; border-color: rgba(255,255,255,.08); }
+.input-shell input,
+.input-shell select { font-size: 14px; padding: 11px 12px; }
+.input-shell em { font-size: 11px; color: #94a7a0; }
+.field-card > small { font-size: 10px; line-height: 1.45; color: #82978f; }
+.advanced-fields summary { min-height: 56px; font-size: 12px; }
+.advanced-fields summary > span:last-child { font-size: 10px; }
+.advanced-fields > p { font-size: 11px; color: #899c95; }
+.simple-field input { font-size: 13px; min-height: 44px; }
+.mode-field button { padding: 13px 6px; }
+.mode-field strong { font-size: 12px; }
+.mode-field small { font-size: 10px; line-height: 1.4; color: #81958e; }
+.percent-grid label > span { font-size: 10px; }
+.percent-grid input { font-size: 13px; min-height: 42px; }
+.percent-grid em { font-size: 11px; }
+.settings-note { font-size: 10.5px; color: #8fa39c; }
+.sticky-action strong { font-size: 13px; }
+.sticky-action span { font-size: 11px; color: #8ba097; }
+
+.estimate-page { padding-bottom: 96px; }
+.estimate-top { margin-bottom: 28px; }
+.estimate-hero { padding: 28px 30px; }
+.estimate-hero p { font-size: 12px; color: #91a59d; }
+.grand-total small { font-size: 10px; color: #8da29a; }
+.grand-total strong { font-size: 31px; }
+.grand-total span { font-size: 11px; color: #879b94; }
+.metric-grid { gap: 10px; margin: 12px 0; }
+.metric-grid > div { padding: 16px 17px; }
+.metric-grid span { font-size: 10px; color: #92a69f; }
+.metric-grid strong { font-size: 16px; }
+
+.estimate-table-panel { border-color: rgba(190,221,210,.24); }
+.table-toolbar { min-height: 70px; padding: 13px 17px; background: rgba(255,255,255,.012); }
+.group-tabs { gap: 5px; }
+.group-tabs button { padding: 9px 12px; font-size: 11px; }
+.add-button { font-size: 11px; min-height: 36px; padding: 0 8px; }
+
+.estimate-table {
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.estimate-table th {
+  color: #9aada6;
+  background: rgba(255,255,255,.025);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(190,221,210,.2);
+  border-right: 1px solid rgba(190,221,210,.09);
+}
+.estimate-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(190,221,210,.11);
+  border-right: 1px solid rgba(190,221,210,.075);
+  color: #a9bbb4;
+  font-size: 11px;
+  vertical-align: middle;
+}
+.estimate-table th:last-child,
+.estimate-table td:last-child { border-right: 0; }
+.estimate-table tbody tr:hover td { background: rgba(104,229,180,.025); }
+.estimate-table input,
+.estimate-table select { font-size: 11px; padding: 7px 6px; color: #e2ebe8; }
+.group-select { font-size: 9.5px !important; color: #95aaa2 !important; }
+.name-input { font-size: 12px !important; line-height: 1.35; }
+.line-total { font-size: 12px !important; color: #edf4f1 !important; }
+.source-tag { font-size: 9.5px; padding: 5px 7px; }
+.delete-button { padding: 7px; }
+
+.assumptions { padding: 24px 26px; }
+.assumptions p { font-size: 12px; line-height: 1.55; color: #93a69f; }
+.total-card { padding: 26px; }
+.total-card > span { font-size: 11px; }
+.total-card > strong { font-size: 28px; }
+.total-card > div { font-size: 12px; padding: 11px 0; }
+.total-card .total-final { font-size: 14px; }
+.new-estimate { font-size: 12px; }
+
+@media (max-width: 720px) {
+  .eyebrow { font-size: 10.5px; }
+  .composer-wrap textarea { font-size: 15px; }
+  .category-card strong { font-size: 15px; }
+  .category-card p { font-size: 12.5px; }
+  .workspace-title p { font-size: 13px; }
+  .panel-title small { font-size: 9.5px; }
+  .panel-title h2 { font-size: 16px; }
+  .field-card > span,
+  .simple-field > span,
+  .mode-field > span { font-size: 12px; }
+  .field-card > small { font-size: 10.5px; }
+  .estimate-hero p { font-size: 11.5px; }
+  .metric-grid span { font-size: 10px; }
+  .metric-grid strong { font-size: 15px; }
+  .group-tabs button { font-size: 10.5px; }
+  .mobile-lines { padding: 6px 14px 14px; }
+  .mobile-line { padding: 16px 2px; }
+  .mobile-line > div:first-child { font-size: 11px; color: #8fa49c; }
+  .mobile-name { padding: 11px 0; font-size: 14px; line-height: 1.4; }
+  .mobile-values { gap: 9px; }
+  .mobile-values label span { font-size: 10px; color: #8ba097; }
+  .mobile-values input { font-size: 13px; padding: 10px; }
+  .mobile-values strong { font-size: 15px; }
+  .assumptions p { font-size: 11.5px; }
+}
