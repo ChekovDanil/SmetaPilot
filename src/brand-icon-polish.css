@@ -1,0 +1,28 @@
+/* Calculation-first micro mark: calculator body + construction dimension corner. */
+.technical-mark::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  width: 12px;
+  height: 16px;
+  border: 1.5px solid #31586a;
+  border-radius: 2.5px;
+  background:
+    linear-gradient(#31586a,#31586a) 2.5px 3px / 7px 1.5px no-repeat,
+    radial-gradient(circle, #31586a 0 1px, transparent 1.15px) 2px 7px / 4px 4px repeat;
+  box-sizing: border-box;
+}
+
+.technical-mark::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid #b77752;
+  border-bottom: 1.5px solid #b77752;
+}
