@@ -141,6 +141,7 @@ main { width: min(1220px, calc(100% - 48px)); margin: 0 auto; }
 .mode-field button { width: 100%; border: 1px solid transparent; border-top-color: var(--line); background: transparent; color: #8fa39c; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; text-align: left; padding: 12px 5px; align-items: center; }
 .mode-field button:last-child { border-bottom-color: var(--line); }
 .mode-field button.active { color: var(--text); }
+.mode-field button:disabled { opacity: .5; cursor: not-allowed; }
 .mode-field button > span:nth-child(2) { display: flex; flex-direction: column; gap: 3px; }
 .mode-field strong { font-size: 10px; }
 .mode-field small { color: #647b72; font-size: 8px; }
@@ -199,6 +200,7 @@ main { width: min(1220px, calc(100% - 48px)); margin: 0 auto; }
 .line-total { color: #d8e4e0 !important; font-weight: 700; text-align: right; }
 .source-tag { display: inline-block; border-radius: 5px; padding: 4px 6px; font-size: 7px; font-weight: 700; }
 .source-tag.user { background: rgba(108,173,255,.1); color: #90bfff; }.source-tag.formula { background: rgba(104,229,180,.1); color: #7fe3bc; }.source-tag.typical { background: rgba(246,189,96,.1); color: #e6b867; }.source-tag.found { background: rgba(186,122,255,.1); color: #c092f1; }
+.source-tag.missing { background: rgba(255,108,108,.1); color: #f1958e; }
 .delete-button { border: 0; background: transparent; color: #50685f; padding: 5px; }.delete-button:hover { color: #ff8c82; }
 .mobile-lines { display: none; }
 .estimate-bottom-grid { display: grid; grid-template-columns: 1fr 380px; gap: 10px; margin-top: 10px; }

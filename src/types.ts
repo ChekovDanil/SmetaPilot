@@ -28,7 +28,7 @@ export interface CategoryDefinition {
   defaultItems: Omit<EstimateLine, "id" | "quantity" | "unitPrice" | "total" | "source">[];
 }
 
-export type ValueSource = "user" | "formula" | "typical" | "found";
+export type ValueSource = "user" | "formula" | "typical" | "found" | "missing";
 
 export interface EstimateLine {
   id: string;

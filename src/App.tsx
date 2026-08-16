@@ -11,7 +11,7 @@ import { exportExcel, exportPdf } from "./lib/export";
 import type { AnalysisResult, AppStep, CategoryId, EstimateDocument, EstimateLine, EstimateSettings } from "./types";
 
 const examples = [catalog[0].example, catalog[6].example, catalog[2].example];
-const sourceLabels = { user: "Введено", formula: "Формула", typical: "Типовое", found: "Найдено" } as const;
+const sourceLabels = { user: "Введено", formula: "Формула", typical: "Типовое", found: "Найдено", missing: "Нет цены" } as const;
 const money = (value: number) => new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(value);
 const numberValue = (value: string) => value === "" ? "" : Number(value.replace(/\s/g, "").replace(",", "."));
 
@@ -138,7 +138,7 @@ function QuestionsScreen({ analysis, parameters, setParameters, settings, setSet
       </div>
       <aside className="settings-panel panel"><div className="panel-title"><div><span className="panel-icon"><Calculator /></span><div><small>ПАРАМЕТРЫ СМЕТЫ</small><h2>Цены и итог</h2></div></div></div>
         <label className="simple-field"><span><MapPin size={15} /> Регион</span><input value={settings.region} placeholder="Например, Москва" onChange={event => setSettings({ ...settings, region: event.target.value })} /></label>
-        <div className="mode-field"><span>Как заполнять неизвестные цены</span>{[["mine", "Только мои цены", "Не добавлять цены из сети"], ["typical", "Типовые значения", "Помечать как допущение"], ["search", "Найти цены", "Поиск с источником и датой"]].map(([value, label, note]) => <button key={value} className={settings.priceMode === value ? "active" : ""} onClick={() => setSettings({ ...settings, priceMode: value as EstimateSettings["priceMode"] })}><span className="radio">{settings.priceMode === value && <i />}</span><span><strong>{label}</strong><small>{note}</small></span>{value === "search" && <Search size={16} />}</button>)}</div>
+        <div className="mode-field"><span>Как заполнять неизвестные цены</span>{[["mine", "Только мои цены", "Неизвестные цены останутся нулевыми"], ["typical", "Типовые значения", "Помечать как допущение"], ["search", "Найти цены · скоро", "Подключим проверенные источники"]].map(([value, label, note]) => <button key={value} disabled={value === "search"} className={settings.priceMode === value ? "active" : ""} onClick={() => setSettings({ ...settings, priceMode: value as EstimateSettings["priceMode"] })}><span className="radio">{settings.priceMode === value && <i />}</span><span><strong>{label}</strong><small>{note}</small></span>{value === "search" && <Search size={16} />}</button>)}</div>
         <div className="percent-grid"><label><span>Накладные</span><div><input type="number" value={settings.overhead} onChange={event => setSettings({ ...settings, overhead: Number(event.target.value) })} /><em>%</em></div></label><label><span>Прибыль</span><div><input type="number" value={settings.profit} onChange={event => setSettings({ ...settings, profit: Number(event.target.value) })} /><em>%</em></div></label><label><span>НДС</span><div><input type="number" value={settings.vat} onChange={event => setSettings({ ...settings, vat: Number(event.target.value) })} /><em>%</em></div></label></div>
         <div className="settings-note"><ShieldCheck size={17} /><span>Все типовые значения будут отдельно отмечены в готовой смете.</span></div>
       </aside>
