@@ -52,7 +52,7 @@ export default {
         return json(request, { error: "Описание должно содержать от 20 до 4000 символов" }, 400);
       }
       const categoryHint = typeof body.categoryId === "string" && categories.includes(body.categoryId as typeof categories[number]) ? body.categoryId : "не задана";
-      const prompt = `Разбери описание строительных работ для черновой коммерческой сметы. Ничего не рассчитывай и не придумывай цены. Извлеки только явно указанные пользователем числа и характеристики. Для extracted используй только стандартные ключи из JSON-схемы: площадь всегда area, объём volume, длина length, масса weight, количество count, цена работ workPrice, цена асфальта asphaltPrice, толщина асфальта в сантиметрах asphaltThickness, толщина основания в сантиметрах baseThickness. Выбери категорию из списка: ${categories.join(", ")}. Подсказка категории: ${categoryHint}. Описание: ${body.text}`;
+      const prompt = `Разбери описание строительных работ для черновой коммерческой сметы. Ничего не рассчитывай и не придумывай цены. Извлеки только явно указанные пользователем числа и характеристики. Для extracted используй только стандартные ключи из JSON-схемы: площадь всегда area, объём volume, длина length, масса weight, количество count, цена работ workPrice, цена асфальта asphaltPrice, толщина асфальта в сантиметрах asphaltThickness, толщина щебёночного основания baseThickness, толщина песчаного слоя sandThickness, глубина выемки excavationDepth, длина бордюра curbLength. Для геотекстиля используй geotextile со значением «Да» или «Нет». Выбери категорию из списка: ${categories.join(", ")}. Подсказка категории: ${categoryHint}. Описание: ${body.text}`;
       const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", {
         messages: [
           { role: "system", content: "Ты аккуратный русскоязычный ассистент-сметчик. Возвращай только проверяемые структурированные данные. Не выполняй арифметику и не назначай цены." },
@@ -73,13 +73,15 @@ export default {
                   type: "object",
                   properties: {
                     area: { type: "number" }, volume: { type: "number" }, length: { type: "number" }, weight: { type: "number" }, count: { type: "number" },
-                    workPrice: { type: "number" }, asphaltPrice: { type: "number" }, asphaltThickness: { type: "number" }, baseThickness: { type: "number" },
-                    crushedStonePrice: { type: "number" }, machineShiftPrice: { type: "number" }, deliveryPrice: { type: "number" }, distance: { type: "number" },
+                    workPrice: { type: "number" }, asphaltPrice: { type: "number" }, asphaltThickness: { type: "number" }, baseThickness: { type: "number" }, sandThickness: { type: "number" },
+                    crushedStonePrice: { type: "number" }, sandPrice: { type: "number" }, geotextilePrice: { type: "number" }, curbPrice: { type: "number" },
+                    machineShiftPrice: { type: "number" }, deliveryPrice: { type: "number" }, distance: { type: "number" }, excavationDepth: { type: "number" }, excavationPrice: { type: "number" }, curbLength: { type: "number" },
+                    asphaltDensity: { type: "number" }, asphaltWaste: { type: "number" }, baseDensity: { type: "number" }, baseWaste: { type: "number" }, sandDensity: { type: "number" }, sandWaste: { type: "number" },
                     concreteThickness: { type: "number" }, concretePrice: { type: "number" }, height: { type: "number" }, ceilingHeight: { type: "number" },
                     points: { type: "number" }, depth: { type: "number" }, capacity: { type: "number" }, insulation: { type: "number" }, wallThickness: { type: "number" },
                     material: { type: "string" }, system: { type: "string" }, soil: { type: "string" }, roofType: { type: "string" }, facadeType: { type: "string" },
                     finishClass: { type: "string" }, installType: { type: "string" }, pipe: { type: "string" }, networkType: { type: "string" },
-                    covering: { type: "string" }, structure: { type: "string" }, complexity: { type: "string" }, profile: { type: "string" }
+                    covering: { type: "string" }, structure: { type: "string" }, complexity: { type: "string" }, profile: { type: "string" }, geotextile: { type: "string", enum: ["Да", "Нет"] }
                   },
                   additionalProperties: false
                 },

@@ -134,6 +134,15 @@ main { width: min(1220px, calc(100% - 48px)); margin: 0 auto; }
 .input-shell em { color: #758a83; font-style: normal; font-size: 10px; padding: 0 11px; white-space: nowrap; }
 .field-card > small { display: flex; align-items: center; gap: 5px; margin-top: 7px; color: #60776e; font-size: 8px; }
 .field-card > small svg { color: var(--green); }
+.advanced-fields { margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(0,0,0,.12); overflow: hidden; }
+.advanced-fields summary { list-style: none; min-height: 52px; padding: 0 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #a7bbb4; cursor: pointer; font-size: 10px; font-weight: 700; }
+.advanced-fields summary::-webkit-details-marker { display: none; }
+.advanced-fields summary > span { display: flex; align-items: center; gap: 7px; }
+.advanced-fields summary > span:last-child { color: #657c74; font-size: 8px; font-weight: 600; }
+.advanced-fields summary svg { color: var(--green); transition: transform .2s ease; }
+.advanced-fields[open] summary > span:last-child svg { transform: rotate(180deg); }
+.advanced-fields > p { margin: 0 15px; padding: 12px 0 0; border-top: 1px solid var(--line); color: #647a72; font-size: 9px; line-height: 1.5; }
+.advanced-fields .fields-grid { padding: 14px; margin-top: 0; }
 .simple-field { display: block; margin-top: 22px; }
 .simple-field > span { display: flex; align-items: center; gap: 5px; }
 .simple-field input { width: 100%; border: 1px solid var(--line); background: rgba(0,0,0,.2); color: var(--text); border-radius: 9px; padding: 11px 12px; font-size: 12px; }
