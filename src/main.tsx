@@ -12,6 +12,7 @@ import "./estimate-polish.css";
 import "./premium-theme.css";
 import "./construction-theme.css";
 import "./art-direction-polish.css";
+import "./brand-icon-polish.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
