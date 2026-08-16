@@ -1,0 +1,371 @@
+/* Final art-direction pass.
+   Reduce the 'graph paper prototype' feeling and make SmetaPilot read as a premium
+   construction estimating service: clean mineral canvas, strong document hierarchy,
+   restrained blueprint detail and warmer commercial accents. */
+
+:root {
+  --canvas: #f4f1e9;
+  --paper-premium: #fffdf8;
+  --paper-muted: #f8f5ee;
+  --graphite: #20282d;
+  --graphite-2: #3e4b51;
+  --steel: #53636a;
+  --blueprint-premium: #31586a;
+  --blueprint-deep: #274755;
+  --copper-premium: #b77752;
+  --line-premium: rgba(38, 54, 61, .13);
+}
+
+html { background: var(--canvas); }
+
+body {
+  color: var(--graphite);
+  background:
+    radial-gradient(980px 560px at 88% 5%, rgba(49,88,106,.055), transparent 66%),
+    radial-gradient(700px 440px at -5% 42%, rgba(183,119,82,.035), transparent 68%),
+    linear-gradient(180deg, #f8f6f0 0%, #f4f1e9 54%, #efebe2 100%);
+  background-attachment: fixed;
+}
+
+/* Keep blueprint language local to working/document areas instead of covering the whole site. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  opacity: .38;
+  background:
+    linear-gradient(rgba(49,88,106,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(49,88,106,.018) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
+.app-shell::before {
+  opacity: .72;
+  border-color: rgba(49,88,106,.035);
+  box-shadow: 0 0 0 54px rgba(49,88,106,.009), 0 0 0 108px rgba(49,88,106,.006);
+}
+
+.app-shell::after { opacity: .5; }
+
+/* Header: stronger identity and fix the start-screen action sitting in the centre column. */
+.topbar {
+  height: 84px;
+  width: min(1280px, calc(100% - 56px));
+  background: rgba(252,250,245,.91);
+  border-color: rgba(38,54,61,.12);
+  box-shadow: 0 10px 36px rgba(40,45,43,.035);
+}
+.brand { grid-column: 1; gap: 13px; }
+.progress { grid-column: 2; }
+.top-actions { grid-column: 3; justify-self: end; }
+
+.brand-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  border-color: #203f4c;
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(145deg, #345f71, #263f4b);
+  background-size: 8px 8px, 8px 8px, auto;
+  box-shadow: 0 9px 22px rgba(35,61,72,.16), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.brand-mark::before {
+  left: 10px;
+  top: 8px;
+  width: 23px;
+  height: 27px;
+  border-width: 1.6px;
+  border-radius: 3px;
+  background:
+    linear-gradient(#dbe7e9,#dbe7e9) 5px 6px / 12px 1.5px no-repeat,
+    linear-gradient(#dbe7e9,#dbe7e9) 5px 11px / 12px 1.5px no-repeat,
+    linear-gradient(#dbe7e9,#dbe7e9) 5px 16px / 9px 1.5px no-repeat,
+    linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)) 3px 21px / 16px 3px no-repeat;
+}
+.brand-mark::after {
+  right: 6px;
+  bottom: 7px;
+  width: 13px;
+  height: 2px;
+  background: #e0a27d;
+  box-shadow: -5px -4px 0 -0.5px rgba(224,162,125,.65);
+}
+.brand-name {
+  font-size: 20px;
+  letter-spacing: -.035em;
+}
+.brand .brand-name span { color: var(--blueprint-premium); }
+.brand-word small {
+  margin-top: 4px;
+  color: #7c8588;
+  font-size: 7.5px;
+  letter-spacing: .13em;
+}
+.privacy { color: #68767c; font-size: 11.5px; }
+.privacy svg { color: #557163; }
+
+main { width: min(1280px, calc(100% - 56px)); }
+
+/* Hero: tighter, calmer, more commercial. */
+.hero {
+  min-height: auto;
+  grid-template-columns: minmax(0, 1.18fr) minmax(390px, .82fr);
+  gap: clamp(52px, 7vw, 100px);
+  align-items: center;
+  padding: 62px 0 50px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  right: -55px;
+  top: 34px;
+  width: min(690px, 54vw);
+  height: 520px;
+  border-radius: 30px;
+  background:
+    linear-gradient(rgba(49,88,106,.027) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(49,88,106,.027) 1px, transparent 1px),
+    linear-gradient(145deg, rgba(255,255,255,.2), rgba(49,88,106,.018));
+  background-size: 28px 28px, 28px 28px, auto;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+}
+
+.technical-plan {
+  opacity: .32;
+  right: -120px;
+  top: 26px;
+}
+.plan-formula,
+.plan-measure { color: rgba(49,88,106,.33); }
+.formula-c { color: rgba(183,119,82,.42); }
+
+.eyebrow {
+  color: #45616d;
+  font-size: 10px;
+  letter-spacing: .115em;
+}
+.technical-mark {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+  border-radius: 8px;
+  background: rgba(255,253,248,.92);
+  border-color: rgba(49,88,106,.18);
+  box-shadow: 0 4px 12px rgba(45,55,56,.055), inset 0 1px 0 #fff;
+  display: grid;
+  place-items: center;
+  color: var(--blueprint-premium);
+}
+.technical-mark::before,
+.technical-mark::after { display: none; }
+.technical-mark svg { width: 16px; height: 16px; stroke-width: 1.7; }
+
+.hero h1 {
+  margin: 24px 0 20px;
+  max-width: 760px;
+  color: #20272c;
+  font-size: clamp(50px, 5vw, 70px);
+  line-height: .99;
+  letter-spacing: -.058em;
+}
+.hero h1 span { color: var(--blueprint-premium); }
+.lead {
+  max-width: 670px;
+  margin-bottom: 28px;
+  color: #5c686e;
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.composer-wrap {
+  max-width: 720px;
+  border-radius: 15px;
+  border-color: rgba(49,88,106,.22);
+  background: rgba(255,253,248,.97);
+  box-shadow: 0 22px 48px rgba(45,50,48,.09), 0 1px 0 rgba(255,255,255,.96);
+}
+.composer-wrap::before {
+  width: 3px;
+  background: linear-gradient(#31586a 0 82%, #b77752 82% 100%);
+}
+.composer-wrap textarea {
+  min-height: 138px;
+  padding: 24px 25px 17px;
+  font-size: 15px;
+}
+.composer-bottom {
+  min-height: 62px;
+  background: rgba(248,245,238,.72);
+}
+.primary-button {
+  min-height: 44px;
+  padding-inline: 20px;
+  border-radius: 9px;
+  border-color: #234553;
+  background: linear-gradient(145deg, #345f71, #294a58);
+  box-shadow: 0 9px 18px rgba(39,73,86,.15), inset 0 -2px 0 rgba(183,119,82,.55), inset 0 1px 0 rgba(255,255,255,.11);
+}
+.primary-button:hover {
+  background: linear-gradient(145deg, #3a687b, #2d5261);
+  box-shadow: 0 12px 22px rgba(39,73,86,.18), inset 0 -2px 0 rgba(196,126,87,.65);
+}
+.examples { margin-top: 14px; }
+.examples button { background: rgba(255,253,248,.72); }
+
+/* The right side should read as a real document preview, not a decorative widget. */
+.hero-side { justify-content: flex-end; }
+.pilot-card {
+  width: min(100%, 430px);
+  padding: 27px 27px 24px;
+  border-radius: 12px;
+  border-color: rgba(38,54,61,.14);
+  background:
+    linear-gradient(rgba(49,88,106,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(49,88,106,.022) 1px, transparent 1px),
+    linear-gradient(180deg, #fffefa 0%, #fbf9f3 100%);
+  background-size: 22px 22px, 22px 22px, auto;
+  box-shadow: 0 30px 65px rgba(40,46,44,.105), 8px 8px 0 rgba(49,88,106,.018);
+}
+.pilot-card::before {
+  content: "СМЕТА / 01";
+  top: 12px;
+  right: 15px;
+  color: rgba(49,88,106,.28);
+  font-size: 7.5px;
+}
+.pilot-head strong { font-size: 15px; }
+.pilot-head small { color: #778489; }
+.pilot-step { min-height: 80px; }
+.pilot-step > span {
+  width: 33px;
+  height: 33px;
+  background: #edf2f3;
+  color: #31586a;
+}
+.pilot-step strong { font-size: 13.5px; }
+.pilot-step p { color: #778388; }
+.pilot-result {
+  margin-top: 10px;
+  background: linear-gradient(110deg, #eef3f4, #f5eee8);
+}
+
+/* Bring the next section into the composition sooner. */
+.directions {
+  padding: 54px 0 42px;
+  border-top-color: rgba(38,54,61,.12);
+}
+.section-heading { margin-bottom: 24px; }
+.section-heading > div > span {
+  color: #95745f;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.section-heading h2 {
+  margin-top: 9px;
+  font-size: 28px;
+}
+.category-grid { gap: 12px; }
+.category-card {
+  min-height: 132px;
+  padding: 18px 18px 17px;
+  border-radius: 12px;
+  border-color: rgba(38,54,61,.13);
+  background: rgba(255,253,248,.88);
+  box-shadow: 0 8px 24px rgba(40,46,44,.035), inset 0 1px 0 #fff;
+}
+.category-card::before {
+  top: 18px;
+  bottom: 18px;
+  background: rgba(49,88,106,.13);
+}
+.category-card:hover,
+.category-card.selected {
+  background: #fffefa;
+  border-color: rgba(49,88,106,.28);
+  box-shadow: 0 14px 30px rgba(40,46,44,.075), inset 0 1px 0 #fff;
+  transform: translateY(-2px);
+}
+.category-number {
+  color: #a37b63;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.category-card strong { font-size: 13.5px; color: #273137; }
+.category-card p { color: #6a777c; font-size: 10.5px; }
+
+/* Service assurance band: add contrast without turning the site dark. */
+.trust-row {
+  margin: 42px 0 66px;
+  padding: 24px 18px;
+  border-radius: 14px;
+  background: linear-gradient(115deg, #2d4651 0%, #314b56 54%, #3e4c50 100%);
+  border: 1px solid rgba(36,58,68,.24);
+  box-shadow: 0 18px 38px rgba(41,48,46,.1), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.trust-row > div { border-right-color: rgba(255,255,255,.11); }
+.trust-row svg { color: #d8e5e6; }
+.trust-row span { color: #c8d2d3; }
+.trust-row strong { color: #fffdf8; font-size: 11.5px; }
+
+/* Work screens: cleaner document surfaces, less washed-out paper. */
+.workspace-section { padding-top: 42px; }
+.panel,
+.estimate-table-panel,
+.assumptions { background: rgba(255,253,248,.97); }
+.field-card { background: #faf7f1; }
+.field-card.important { background: #fffdf8; }
+.sticky-action {
+  background: rgba(255,253,248,.97);
+  border-color: rgba(49,88,106,.16);
+}
+.metric-grid > div { background: #fffdf8; }
+.total-card { background: linear-gradient(145deg, #e8eef0, #f3ebe4); }
+
+@media (max-width: 920px) {
+  .topbar { width: min(100% - 34px, 1280px); }
+  main { width: min(100% - 34px, 1280px); }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding: 48px 0 44px;
+  }
+  .hero::before { right: -180px; width: 760px; opacity: .6; }
+  .hero-side { justify-content: flex-start; }
+  .pilot-card { max-width: 520px; }
+}
+
+@media (max-width: 720px) {
+  body::before { display: none; }
+  .topbar {
+    height: 70px;
+    width: calc(100% - 28px);
+    grid-template-columns: 1fr auto;
+  }
+  .brand { grid-column: 1; }
+  .top-actions { grid-column: 2; }
+  .progress { grid-column: 1 / -1; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-name { font-size: 17px; }
+  main { width: calc(100% - 28px); }
+  .hero { padding-top: 34px; }
+  .hero::before { display: none; }
+  .technical-plan { opacity: .18; }
+  .hero h1 {
+    margin-top: 20px;
+    font-size: clamp(42px, 13vw, 58px);
+  }
+  .lead { font-size: 15px; }
+  .composer-wrap textarea { min-height: 132px; }
+  .directions { padding-top: 42px; }
+  .category-card { min-height: 118px; }
+  .trust-row {
+    margin-top: 34px;
+    padding: 5px 16px;
+    background: linear-gradient(145deg, #2d4651, #38484e);
+  }
+}
