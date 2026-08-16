@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft, ArrowRight, BadgeCheck, Calculator, Check, ChevronDown,
   CircleHelp, ClipboardList, FileDown, HardHat, Layers3, MapPin, Search,
-  ShieldCheck, Sparkles, WandSparkles
+  ShieldCheck, WandSparkles
 } from "lucide-react";
 import { catalog, categoryById } from "./data/catalog";
 import EnhancedEstimateScreen from "./components/EnhancedEstimateScreen";
@@ -12,6 +12,17 @@ import type { AnalysisResult, AppStep, CategoryId, EstimateDocument, EstimateLin
 
 const examples = [catalog[0].example, catalog[6].example, catalog[2].example];
 const numberValue = (value: string) => value === "" ? "" : Number(value.replace(/\s/g, "").replace(",", "."));
+
+function BrandMark({ compact = false }: { compact?: boolean }) {
+  return <span className={`brand-mark ${compact ? "compact" : ""}`} aria-hidden="true">
+    <span className="brand-sigma">Σ</span>
+    <i className="brand-dimension" />
+  </span>;
+}
+
+function TechnicalMark() {
+  return <span className="technical-mark" aria-hidden="true"><span>Σ</span><i /></span>;
+}
 
 function App() {
   const [step, setStep] = useState<AppStep>("start");
@@ -73,7 +84,10 @@ function App() {
 
   return <div className="app-shell">
     <header className="topbar">
-      <button className="brand" onClick={startNew} aria-label="На главную"><span className="brand-mark"><Calculator size={20} /></span><span>Smeta<span>Pilot</span></span></button>
+      <button className="brand" onClick={startNew} aria-label="На главную">
+        <BrandMark />
+        <span className="brand-word"><span className="brand-name">Smeta<span>Pilot</span></span><small>строительные сметы</small></span>
+      </button>
       {step !== "start" && <div className="progress" aria-label="Прогресс"><span className="done"><Check size={14} /> Описание</span><i /><span className={step !== "questions" ? "done" : "active"}>{step === "estimate" ? <Check size={14} /> : "2"} Уточнения</span><i /><span className={step === "estimate" ? "active" : ""}>3 Смета</span></div>}
       <div className="top-actions">{document && step === "start" && <button className="ghost-button" onClick={() => setStep("estimate")}><ClipboardList size={17} /> Черновик</button>}<span className="privacy"><ShieldCheck size={16} /> Данные хранятся локально</span></div>
     </header>
@@ -100,8 +114,15 @@ function StartScreen({ description, setDescription, selected, setSelected, loadi
   const visibleCategories = showAll ? catalog : catalog.slice(0, 8);
   return <>
     <section className="hero">
+      <div className="technical-plan" aria-hidden="true">
+        <span className="plan-formula formula-a">S = a × b</span>
+        <span className="plan-formula formula-b">V = S × h</span>
+        <span className="plan-formula formula-c">Σ = q × p</span>
+        <span className="plan-measure measure-a">7 000</span>
+        <span className="plan-measure measure-b">50 mm</span>
+      </div>
       <div className="hero-copy">
-        <div className="eyebrow"><Sparkles size={16} /> Умный мастер строительных смет</div>
+        <div className="eyebrow"><TechnicalMark /> Умный мастер строительных смет</div>
         <h1>Опишите работу.<br /><span>Получите готовую смету.</span></h1>
         <p className="lead">SmetaPilot поймёт задачу, задаст только важные вопросы и рассчитает объёмы по прозрачным формулам.</p>
         <div className="composer-wrap">
@@ -113,7 +134,7 @@ function StartScreen({ description, setDescription, selected, setSelected, loadi
         <div className="examples"><span>Попробовать:</span>{examples.map((example, index) => <button key={example} onClick={() => { setDescription(example); setSelected(index === 0 ? "roads" : index === 1 ? "interiors" : "concrete"); }}>{index === 0 ? "Дорога" : index === 1 ? "Ремонт офиса" : "Фундамент"}</button>)}</div>
       </div>
       <div className="hero-side">
-        <div className="pilot-card"><div className="card-orbit orbit-one" /><div className="card-orbit orbit-two" /><div className="pilot-head"><span><WandSparkles size={18} /></span><div><small>SMETAPILOT</small><strong>От задачи до документа</strong></div></div>
+        <div className="pilot-card estimate-sheet-card"><div className="card-orbit orbit-one" /><div className="card-orbit orbit-two" /><div className="pilot-head"><TechnicalMark /><div><small>SMETAPILOT / ESTIMATE</small><strong>От задачи до документа</strong></div></div>
           <div className="pilot-step"><span>01</span><div><strong>Распознаёт</strong><p>вид работ, объёмы и ваши цены</p></div><BadgeCheck size={18} /></div>
           <div className="pilot-step"><span>02</span><div><strong>Уточняет</strong><p>только параметры, влияющие на итог</p></div><CircleHelp size={18} /></div>
           <div className="pilot-step"><span>03</span><div><strong>Рассчитывает</strong><p>работы, материалы, технику и НДС</p></div><Calculator size={18} /></div>
@@ -146,7 +167,7 @@ function QuestionsScreen({ analysis, parameters, setParameters, settings, setSet
 
   return <section className="workspace-section">
     <button className="back-link" onClick={onBack}><ArrowLeft size={17} /> Изменить описание</button>
-    <div className="workspace-title"><div><div className="eyebrow"><BadgeCheck size={16} /> Задачу понял</div><h1>{analysis.projectName}</h1><p>{category.description}. Проверьте значения — типовые параметры можно оставить как есть.</p></div><div className="confidence"><span>{Math.round(analysis.confidence * 100)}%</span><small>уверенность<br />распознавания</small></div></div>
+    <div className="workspace-title"><div><div className="eyebrow"><TechnicalMark /> Задача распознана</div><h1>{analysis.projectName}</h1><p>{category.description}. Проверьте значения — типовые параметры можно оставить как есть.</p></div><div className="confidence"><span>{Math.round(analysis.confidence * 100)}%</span><small>уверенность<br />распознавания</small></div></div>
     <div className="workspace-grid">
       <div className="questions-panel panel">
         <div className="panel-title"><div><span className="panel-icon"><ClipboardList /></span><div><small>ШАГ 2 ИЗ 3</small><h2>Уточните параметры</h2></div></div><span className="required-dot">● обязательные</span></div>
