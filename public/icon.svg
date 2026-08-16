@@ -1,5 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs><linearGradient id="g" x1="8" y1="6" x2="54" y2="58"><stop stop-color="#6ef0bb"/><stop offset="1" stop-color="#b8ff6a"/></linearGradient></defs>
-  <rect width="64" height="64" rx="18" fill="#0d1916"/>
-  <path d="M18 18h28v7H25v8h17v7H25v7h21v7H18V18Z" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="paper" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#315F74"/>
+      <stop offset="1" stop-color="#203E4C"/>
+    </linearGradient>
+    <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M8 0H0V8" fill="none" stroke="#FFFFFF" stroke-opacity=".07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#paper)"/>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#grid)"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="13.5" fill="none" stroke="#18333F"/>
+  <path d="M42.5 17H22l11.5 15L22 47h20.5" fill="none" stroke="#FFFDF8" stroke-width="6.2" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M48 41v8h-8" fill="none" stroke="#D89A72" stroke-width="2.4" stroke-linecap="square"/>
 </svg>
