@@ -9,6 +9,7 @@ import App from "./App";
 import "./styles.css";
 import "./readability.css";
 import "./estimate-polish.css";
+import "./premium-theme.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
