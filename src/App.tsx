@@ -8,7 +8,7 @@ import { catalog, categoryById } from "./data/catalog";
 import { analyzeDescription } from "./lib/analyzer";
 import { buildEstimate, totals, updateLine } from "./lib/estimate";
 import { exportExcel, exportPdf } from "./lib/export";
-import type { AnalysisResult, AppStep, CategoryId, EstimateDocument, EstimateLine, EstimateSettings } from "./types";
+import type { AnalysisResult, AppStep, CategoryId, EstimateDocument, EstimateLine, EstimateSettings, ParameterDefinition } from "./types";
 
 const examples = [catalog[0].example, catalog[6].example, catalog[2].example];
 const sourceLabels = { user: "Введено", formula: "Формула", typical: "Типовое", found: "Найдено", missing: "Нет цены" } as const;
@@ -127,14 +127,15 @@ function QuestionsScreen({ analysis, parameters, setParameters, settings, setSet
   settings: EstimateSettings; setSettings: (value: EstimateSettings) => void; onBack: () => void; onCreate: () => void;
 }) {
   const category = categoryById(analysis.categoryId);
+  const mainFields = category.parameters.filter(field => !field.advanced);
+  const advancedFields = category.parameters.filter(field => field.advanced);
   return <section className="workspace-section">
     <button className="back-link" onClick={onBack}><ArrowLeft size={17} /> Изменить описание</button>
     <div className="workspace-title"><div><div className="eyebrow"><BadgeCheck size={16} /> Задачу понял</div><h1>{analysis.projectName}</h1><p>{category.description}. Проверьте значения — типовые параметры можно оставить как есть.</p></div><div className="confidence"><span>{Math.round(analysis.confidence * 100)}%</span><small>уверенность<br />распознавания</small></div></div>
     <div className="workspace-grid">
       <div className="questions-panel panel"><div className="panel-title"><div><span className="panel-icon"><ClipboardList /></span><div><small>ШАГ 2 ИЗ 3</small><h2>Уточните параметры</h2></div></div><span className="required-dot">● обязательные</span></div>
-        <div className="fields-grid">{category.parameters.map(field => <label className={`field-card ${field.important ? "important" : ""}`} key={field.id}><span>{field.label}{field.important && <i>●</i>}</span><div className="input-shell">
-          {field.kind === "select" ? <select value={parameters[field.id] ?? field.defaultValue ?? ""} onChange={event => setParameters({ ...parameters, [field.id]: event.target.value })}>{field.options?.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select> : <input type={field.kind} inputMode={field.kind === "number" ? "decimal" : undefined} value={parameters[field.id] ?? ""} placeholder={field.placeholder} onChange={event => setParameters({ ...parameters, [field.id]: field.kind === "number" ? numberValue(event.target.value) : event.target.value })} />}
-          {field.unit && <em>{field.unit}</em>}</div>{field.defaultValue !== undefined && !analysis.extracted[field.id] && <small><WandSparkles size={12} /> Типовое значение — можно изменить</small>}</label>)}</div>
+        <ParameterFields fields={mainFields} parameters={parameters} setParameters={setParameters} extracted={analysis.extracted} />
+        {advancedFields.length > 0 && <details className="advanced-fields"><summary><span><Layers3 size={16} /> Точная настройка конструкции</span><span>{advancedFields.length} параметров <ChevronDown size={16} /></span></summary><p>Добавьте только то, что входит в проект. Нулевые слои и работы в смету не попадут.</p><ParameterFields fields={advancedFields} parameters={parameters} setParameters={setParameters} extracted={analysis.extracted} /></details>}
       </div>
       <aside className="settings-panel panel"><div className="panel-title"><div><span className="panel-icon"><Calculator /></span><div><small>ПАРАМЕТРЫ СМЕТЫ</small><h2>Цены и итог</h2></div></div></div>
         <label className="simple-field"><span><MapPin size={15} /> Регион</span><input value={settings.region} placeholder="Например, Москва" onChange={event => setSettings({ ...settings, region: event.target.value })} /></label>
@@ -145,6 +146,17 @@ function QuestionsScreen({ analysis, parameters, setParameters, settings, setSet
     </div>
     <div className="sticky-action"><div><strong>{category.name}</strong><span>{category.parameters.filter(field => parameters[field.id] !== undefined && parameters[field.id] !== "").length} из {category.parameters.length} параметров заполнено</span></div><button className="primary-button large" onClick={onCreate}>Рассчитать смету <ArrowRight size={19} /></button></div>
   </section>;
+}
+
+function ParameterFields({ fields, parameters, setParameters, extracted }: {
+  fields: ParameterDefinition[];
+  parameters: Record<string, string | number>;
+  setParameters: (value: Record<string, string | number>) => void;
+  extracted: Record<string, string | number>;
+}) {
+  return <div className="fields-grid">{fields.map(field => <label className={`field-card ${field.important ? "important" : ""}`} key={field.id}><span>{field.label}{field.important && <i>●</i>}</span><div className="input-shell">
+    {field.kind === "select" ? <select value={parameters[field.id] ?? field.defaultValue ?? ""} onChange={event => setParameters({ ...parameters, [field.id]: event.target.value })}>{field.options?.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select> : <input type={field.kind} inputMode={field.kind === "number" ? "decimal" : undefined} value={parameters[field.id] ?? ""} placeholder={field.placeholder} onChange={event => setParameters({ ...parameters, [field.id]: field.kind === "number" ? numberValue(event.target.value) : event.target.value })} />}
+    {field.unit && <em>{field.unit}</em>}</div>{field.help ? <small><CircleHelp size={12} /> {field.help}</small> : field.defaultValue !== undefined && !extracted[field.id] && <small><WandSparkles size={12} /> Типовое значение — можно изменить</small>}</label>)}</div>;
 }
 
 function EstimateScreen({ document, setDocument, total, onLineChange, onBack, onNew }: {

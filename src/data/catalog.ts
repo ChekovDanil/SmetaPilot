@@ -10,7 +10,31 @@ export const catalog: CategoryDefinition[] = [
   {
     id: "roads", name: "Дорожные работы", shortName: "Дороги", description: "Асфальтирование, основания, бордюры и площадки", keywords: ["дорог", "асфальт", "щеб", "бордюр", "парков", "тротуар"],
     example: "Асфальтирование 700 м², слой 5 см, основание щебень 15 см. Асфальт 7 000 ₽/т.",
-    parameters: [area(), thickness("asphaltThickness", "Слой асфальта", 5), thickness("baseThickness", "Основание из щебня", 15), { id: "asphaltPrice", label: "Цена асфальта", shortLabel: "Асфальт", kind: "number", unit: "₽/т", placeholder: "7 000" }, price(), select("workPriceScope", "Что входит в цену работ", ["Только работы", "Работы и техника", "Всё с материалами"])],
+    parameters: [
+      area(),
+      thickness("asphaltThickness", "Слой асфальта", 5),
+      thickness("baseThickness", "Основание из щебня", 15),
+      { id: "asphaltPrice", label: "Цена асфальта", shortLabel: "Асфальт", kind: "number", unit: "₽/т", placeholder: "7 000" },
+      price(),
+      select("workPriceScope", "Что входит в цену работ", ["Только работы", "Работы и техника", "Всё с материалами"]),
+      { id: "excavationDepth", label: "Выемка грунта", shortLabel: "Выемка", kind: "number", unit: "см", defaultValue: 0, advanced: true, help: "Оставьте 0, если земляные работы не нужны" },
+      { id: "excavationPrice", label: "Разработка и вывоз грунта", shortLabel: "Грунт", kind: "number", unit: "₽/м³", advanced: true },
+      { id: "geotextile", label: "Геотекстиль", shortLabel: "Геотекстиль", kind: "select", options: [{ label: "Не нужен", value: "Нет" }, { label: "Нужен", value: "Да" }], defaultValue: "Нет", advanced: true },
+      { id: "geotextilePrice", label: "Цена геотекстиля", shortLabel: "Геотекстиль", kind: "number", unit: "₽/м²", advanced: true },
+      { id: "sandThickness", label: "Песчаный слой", shortLabel: "Песок", kind: "number", unit: "см", defaultValue: 0, advanced: true },
+      { id: "sandPrice", label: "Цена песка", shortLabel: "Песок", kind: "number", unit: "₽/т", advanced: true },
+      { id: "crushedStonePrice", label: "Цена щебня", shortLabel: "Щебень", kind: "number", unit: "₽/т", advanced: true },
+      { id: "curbLength", label: "Длина бордюров", shortLabel: "Бордюр", kind: "number", unit: "м", defaultValue: 0, advanced: true },
+      { id: "curbPrice", label: "Цена бордюра", shortLabel: "Бордюр", kind: "number", unit: "₽/м", advanced: true },
+      { id: "machineShiftPrice", label: "Комплект дорожной техники", shortLabel: "Техника", kind: "number", unit: "₽/смена", advanced: true },
+      { id: "deliveryPrice", label: "Стоимость одного рейса", shortLabel: "Доставка", kind: "number", unit: "₽/рейс", advanced: true },
+      { id: "asphaltDensity", label: "Плотность асфальта", shortLabel: "Плотность", kind: "number", unit: "т/м³", defaultValue: 2.35, advanced: true },
+      { id: "asphaltWaste", label: "Запас асфальта", shortLabel: "Запас", kind: "number", unit: "%", defaultValue: 3, advanced: true },
+      { id: "baseDensity", label: "Насыпная плотность щебня", shortLabel: "Плотность", kind: "number", unit: "т/м³", defaultValue: 1.45, advanced: true },
+      { id: "baseWaste", label: "Запас щебня", shortLabel: "Запас", kind: "number", unit: "%", defaultValue: 5, advanced: true },
+      { id: "sandDensity", label: "Насыпная плотность песка", shortLabel: "Плотность", kind: "number", unit: "т/м³", defaultValue: 1.6, advanced: true },
+      { id: "sandWaste", label: "Запас песка", shortLabel: "Запас", kind: "number", unit: "%", defaultValue: 5, advanced: true }
+    ],
     defaultItems: [item("Работы", "Разбивка и подготовка участка", "м²"), item("Работы", "Устройство щебёночного основания", "м²"), item("Работы", "Укладка асфальтобетонной смеси", "м²"), item("Материалы", "Щебень", "т"), item("Материалы", "Асфальтобетонная смесь", "т"), item("Техника", "Каток и асфальтоукладчик", "смена"), item("Транспорт", "Доставка материалов", "рейс")]
   },
   {

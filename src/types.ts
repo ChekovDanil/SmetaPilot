@@ -15,6 +15,8 @@ export interface ParameterDefinition {
   defaultValue?: string | number;
   options?: { label: string; value: string }[];
   important?: boolean;
+  advanced?: boolean;
+  help?: string;
 }
 
 export interface CategoryDefinition {
