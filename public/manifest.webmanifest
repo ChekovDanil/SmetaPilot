@@ -4,7 +4,7 @@
   "description": "Профессиональный сервис строительных смет и расчётов",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f2f0e9",
-  "theme_color": "#f2f0e9",
-  "icons": [{ "src": "./icon.svg?v=4", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+  "background_color": "#07110f",
+  "theme_color": "#07110f",
+  "icons": [{ "src": "./icon.svg?v=5", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
 }
